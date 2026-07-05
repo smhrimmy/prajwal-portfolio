@@ -57,6 +57,16 @@ export function Projects() {
                 className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-20 blur-3xl transition-opacity group-hover:opacity-40"
                 style={{ background: p.accent }}
               />
+              {p.image && (
+                <div className="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-2xl aspect-[16/9] border-b border-border/50">
+                  <img 
+                    src={p.image} 
+                    alt={p.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                    loading="lazy"
+                  />
+                </div>
+              )}
               <div className="flex items-center justify-between font-mono text-[11px] text-muted-foreground">
                 <span>OBJ_ID: {p.codename}</span>
                 <span className="rounded-full bg-muted px-2 py-0.5">{p.category}</span>

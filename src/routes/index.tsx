@@ -23,27 +23,26 @@ import { Terminal } from "@/components/secret/Terminal";
 import { SecretFeatures } from "@/components/secret/SecretFeatures";
 
 import { getSiteFn, getProjectsFn, getSkillsFn, getThemeFn } from "../actions/storage";
+import { getGithubStatsFn } from "../actions/github";
 
 export const Route = createFileRoute("/")({
   component: Index,
   staleTime: 1000 * 60 * 60, // Cache loader data client-side for 1 hour
   headers: () => {
     return {
-      // Cloudflare / Vercel Edge Cache:
-      // Cache at edge for 1 hour (s-maxage=3600)
-      // Serve stale content while revalidating for 24 hours
       "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
     };
   },
   loader: async () => {
-    const [blogs, site, projects, skills, theme] = await Promise.all([
+    const [blogs, site, projects, skills, theme, github] = await Promise.all([
       getBlogs(),
       getSiteFn(),
       getProjectsFn(),
       getSkillsFn(),
-      getThemeFn()
+      getThemeFn(),
+      getGithubStatsFn()
     ]);
-    return { blogs, site, projects, skills, theme };
+    return { blogs, site, projects, skills, theme, github };
   },
 });
 
@@ -84,7 +83,7 @@ function Index() {
         <Projects />
         <Experience />
         <Certifications />
-        <GithubSection />
+        <GithubSection stats={data.github} />
         <Blog posts={data.blogs} />
         <Contact />
       </main>

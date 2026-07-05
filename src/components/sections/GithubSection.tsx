@@ -28,22 +28,32 @@ function Heatmap() {
   );
 }
 
-export function GithubSection() {
-  const stats = [
-    { icon: Users, label: "Followers", value: githubStats.followers },
-    { icon: Star, label: "Stars", value: githubStats.stars },
-    { icon: GitCommit, label: "Commits '26", value: githubStats.commitsThisYear },
-    { icon: Github, label: "Repos", value: githubStats.repos },
+export function GithubSection({ stats }: { stats?: any }) {
+  const currentStats = stats || {
+    username: githubStats.username,
+    followers: githubStats.followers,
+    stars: githubStats.stars,
+    repos: githubStats.repos,
+    commitsThisYear: githubStats.commitsThisYear,
+    languages: githubStats.languages,
+    repositories: githubStats.repositories
+  };
+
+  const statBoxes = [
+    { icon: Users, label: "Followers", value: currentStats.followers },
+    { icon: Star, label: "Stars", value: currentStats.stars },
+    { icon: GitCommit, label: "Commits '26", value: githubStats.commitsThisYear }, // Commits remain static until a more complex API fetches it
+    { icon: Github, label: "Repos", value: currentStats.repos },
   ];
   return (
     <section id="github" className="relative mx-auto max-w-6xl px-6 py-28">
-      <SectionHeading kicker="// telemetry" title="GitHub Logs" subtitle={`Activity from @${githubStats.username}`} />
+      <SectionHeading kicker="// telemetry" title="GitHub Logs" subtitle={`Activity from @${currentStats.username}`} />
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {stats.map((s) => (
+        {statBoxes.map((s) => (
           <div key={s.label} className="glass corner-brackets rounded-2xl p-5 text-center">
             <s.icon className="mx-auto h-6 w-6 text-secondary" />
-            <div className="mt-2 text-2xl font-black text-gradient">{s.value.toLocaleString()}</div>
+            <div className="mt-2 text-2xl font-black text-gradient">{s.value?.toLocaleString()}</div>
             <div className="font-mono text-[11px] uppercase text-muted-foreground">{s.label}</div>
           </div>
         ))}
@@ -58,7 +68,7 @@ export function GithubSection() {
         <div className="glass rounded-2xl p-6">
           <div className="mb-4 font-mono text-xs uppercase tracking-wider text-secondary">Language Distribution</div>
           <div className="space-y-3">
-            {githubStats.languages.map((l) => (
+            {currentStats.languages.map((l: any) => (
               <div key={l.name}>
                 <div className="mb-1 flex justify-between text-xs">
                   <span>{l.name}</span>
@@ -79,10 +89,11 @@ export function GithubSection() {
           </div>
         </div>
         <div className="grid gap-3">
-          {githubStats.repositories.map((r) => (
+          {currentStats.repositories.map((r: any) => (
             <motion.a
               key={r.name}
-              href="#"
+              href={r.url || "#"}
+              target="_blank"
               data-cursor="hover"
               whileHover={{ x: 4 }}
               className="glass flex items-center justify-between rounded-xl p-4"

@@ -115,6 +115,14 @@ function AdminDashboard() {
                 />
               </div>
               <div>
+                <label className="text-sm text-muted-foreground block mb-1">GitHub Username</label>
+                <input 
+                  value={store.site.github_username || ""} 
+                  onChange={e => store.setSite({ ...store.site, github_username: e.target.value })}
+                  className="w-full bg-muted/50 border border-border rounded-md px-3 py-2 outline-none" 
+                />
+              </div>
+              <div>
                 <label className="text-sm text-muted-foreground block mb-1">Role</label>
                 <input 
                   value={store.site.role || ""} 
@@ -162,6 +170,16 @@ function AdminDashboard() {
                     }}
                     className="w-full bg-muted/50 border border-border rounded-md px-3 py-2 outline-none h-20" 
                     placeholder="Description"
+                  />
+                  <input 
+                    value={proj.image || ""} 
+                    onChange={e => {
+                      const newP = [...store.projects];
+                      newP[i].image = e.target.value;
+                      store.setProjects(newP);
+                    }}
+                    className="w-full bg-muted/50 border border-border rounded-md px-3 py-2 outline-none" 
+                    placeholder="Image URL (e.g. https://example.com/img.png)"
                   />
                   <div className="flex justify-between items-center mt-2">
                     <span className="text-xs text-muted-foreground">ID: {i}</span>
