@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getBlogs } from "../actions/blog";
 import { useEffect, useState } from "react";
-import { useAppStore } from "@/store/useAppStore";
-import { Loader } from "@/components/onboarding/Loader";
 import { Background } from "@/components/background/Background";
 import { Particles } from "@/components/background/Particles";
 import { CustomCursor } from "@/components/cursor/CustomCursor";
@@ -24,17 +22,46 @@ import { CommandPalette } from "@/components/secret/CommandPalette";
 import { Terminal } from "@/components/secret/Terminal";
 import { SecretFeatures } from "@/components/secret/SecretFeatures";
 
+import { getSiteFn, getProjectsFn, getSkillsFn, getThemeFn } from "../actions/storage";
+
 export const Route = createFileRoute("/")({
   component: Index,
+  staleTime: 1000 * 60 * 60, // Cache loader data client-side for 1 hour
+  headers: () => {
+    return {
+      // Cloudflare / Vercel Edge Cache:
+      // Cache at edge for 1 hour (s-maxage=3600)
+      // Serve stale content while revalidating for 24 hours
+      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+    };
+  },
   loader: async () => {
-    return await getBlogs();
+    const [blogs, site, projects, skills, theme] = await Promise.all([
+      getBlogs(),
+      getSiteFn(),
+      getProjectsFn(),
+      getSkillsFn(),
+      getThemeFn()
+    ]);
+    return { blogs, site, projects, skills, theme };
   },
 });
 
+import { useCmsStore } from "@/store/useCmsStore";
+
 function Index() {
-  const loaded = useAppStore((s) => s.loaded);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const data = Route.useLoaderData();
+  const { setSite, setProjects, setSkills, setTheme } = useCmsStore();
+
+  useEffect(() => {
+    setMounted(true);
+    // Hydrate CMS store with server data
+    if (data.site) setSite(data.site);
+    if (data.projects) setProjects(data.projects);
+    if (data.skills) setSkills(data.skills);
+    if (data.theme) setTheme(data.theme);
+  }, [data]);
 
   return (
     <>
@@ -47,8 +74,6 @@ function Index() {
         </>
       )}
 
-      {mounted && !loaded && <Loader />}
-
       <FloatingNav />
       <ControlDock />
 
@@ -60,7 +85,7 @@ function Index() {
         <Experience />
         <Certifications />
         <GithubSection />
-        <Blog posts={Route.useLoaderData()} />
+        <Blog posts={data.blogs} />
         <Contact />
       </main>
       <Footer />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Code2, Terminal, Cpu, Cloud, GitBranch } from "lucide-react";
-import { profile } from "@/data/profile";
+import { useCmsStore } from "@/store/useCmsStore";
 import { useMagnetic } from "@/lib/motion";
 
 function useTyping(words: readonly string[]) {
@@ -37,7 +37,7 @@ const floatIcons = [
 ];
 
 export function Hero() {
-  const typed = useTyping(profile.rotatingTitles);
+  const site = useCmsStore((s) => s.site);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const ctaRef = useMagnetic<HTMLAnchorElement>(0.4);
 
@@ -80,35 +80,33 @@ export function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
           </span>
-          {profile.available ? "Available for Work" : "Currently Busy"}
+          {site.available ? "Available for Work" : "Currently Busy"}
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
           className="font-mono text-sm text-secondary"
         >
-          {profile.handle} · {profile.location}
+          {site.handle} · {site.location}
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
           className="mt-3 text-5xl font-black leading-none tracking-tighter sm:text-7xl md:text-8xl"
         >
-          <span className="text-gradient animate-gradient-pan">{profile.name}</span>
+          <span className="text-gradient animate-gradient-pan">{site.name}</span>
         </motion.h1>
 
         <div className="mt-5 flex h-8 items-center justify-center font-mono text-lg text-muted-foreground sm:text-2xl">
           <span className="text-secondary">&gt;</span>
-          <span className="ml-2 text-foreground">{typed}</span>
+          <span className="ml-2 text-foreground">{site.role || "Full Stack Engineer"}</span>
           <span className="ml-0.5 animate-pulse text-secondary">▋</span>
         </div>
 
         <p className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground sm:text-base">
-          {profile.bio}
+          {site.bio}
         </p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
@@ -122,7 +120,7 @@ export function Hero() {
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
-            href={profile.resumeUrl}
+            href={site.resumeUrl || "#"}
             data-cursor="hover"
             className="inline-flex items-center gap-2 rounded-full border border-border glass px-6 py-3 text-sm font-semibold transition-colors hover:border-secondary/50"
           >

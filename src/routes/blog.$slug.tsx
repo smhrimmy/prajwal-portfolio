@@ -43,6 +43,12 @@ export const Route = createFileRoute("/blog/$slug")({
         }
       ]
     };
+  },
+  staleTime: 1000 * 60 * 60, // Cache loader data client-side for 1 hour
+  headers: () => {
+    return {
+      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+    };
   }
 });
 
@@ -66,7 +72,7 @@ function BlogPost() {
             <span>{post.read_time}</span>
           </div>
           
-          <SectionHeading title={post.title} />
+          <SectionHeading kicker="// article" title={post.title} />
           
           {post.image_url && (
             <div className="mt-8 rounded-2xl overflow-hidden aspect-video border border-border">

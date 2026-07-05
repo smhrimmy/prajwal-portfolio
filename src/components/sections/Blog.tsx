@@ -55,7 +55,8 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
         {filtered.map((p, i) => (
           <Link
             key={p.id}
-            to={`/blog/${p.slug}`}
+            to="/blog/$slug"
+            params={{ slug: p.slug }}
             className="glass corner-brackets group relative rounded-2xl p-6 block"
           >
             <motion.div

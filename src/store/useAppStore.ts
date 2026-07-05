@@ -22,7 +22,7 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  loaded: false,
+  loaded: true,
   progress: 0,
   theme: "dark",
   commandOpen: false,

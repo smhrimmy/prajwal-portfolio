@@ -1,20 +1,27 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
-import { projects, projectCategories } from "@/data/projects";
+import { useCmsStore } from "@/store/useCmsStore";
+import { projectCategories } from "@/data/projects"; // fallback or kept for categories
 import { SectionHeading } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 export function Projects() {
+  const storeProjects = useCmsStore((s) => s.projects);
   const [cat, setCat] = useState("All");
-  const filtered = cat === "All" ? projects : projects.filter((p) => p.category === cat);
+  
+  // Extract unique categories from dynamic projects (or fallback to static if needed)
+  const dynamicCategories = ["All", ...Array.from(new Set(storeProjects.map(p => p.category).filter(Boolean)))];
+  const cats = dynamicCategories.length > 1 ? dynamicCategories : projectCategories;
+
+  const filtered = cat === "All" ? storeProjects : storeProjects.filter((p) => p.category === cat);
 
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-6 py-28">
       <SectionHeading kicker="// registry" title="Digital Artifacts" subtitle="A curated collection of experimental systems and shipped products." />
 
       <div className="mb-10 flex flex-wrap justify-center gap-2">
-        {projectCategories.map((c) => (
+        {cats.map((c) => (
           <button
             key={c}
             onClick={() => setCat(c)}
@@ -57,7 +64,7 @@ export function Projects() {
               <h3 className="mt-4 text-xl font-bold tracking-tight">{p.title}</h3>
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.description}</p>
               <div className="mt-4 flex flex-wrap gap-1.5">
-                {p.tags.map((t) => (
+                {p.tags.map((t: string) => (
                   <span
                     key={t}
                     className="rounded-md border border-border bg-muted/50 px-2 py-0.5 font-mono text-[10px] text-secondary"
