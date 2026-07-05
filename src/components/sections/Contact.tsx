@@ -25,11 +25,12 @@ function Field({ label, type = "text", value, onChange, error, textarea }: {
   const active = focus || value.length > 0;
   return (
     <div className="relative">
-      <label className={`pointer-events-none absolute left-3 font-mono text-xs transition-all ${active ? "top-1.5 text-secondary" : "top-3.5 text-muted-foreground"}`}>
+      <label htmlFor={label.replace(/\s+/g, '-').toLowerCase()} className={`pointer-events-none absolute left-3 font-mono text-xs transition-all ${active ? "top-1.5 text-secondary" : "top-3.5 text-muted-foreground"}`}>
         {label}
       </label>
       {textarea ? (
         <textarea
+          id={label.replace(/\s+/g, '-').toLowerCase()}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocus(true)}
@@ -39,6 +40,7 @@ function Field({ label, type = "text", value, onChange, error, textarea }: {
         />
       ) : (
         <input
+          id={label.replace(/\s+/g, '-').toLowerCase()}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}

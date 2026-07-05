@@ -55,10 +55,11 @@ export function FloatingNav() {
           const Icon = l.icon;
           const isActive = active === l.id;
           return (
-            <a
-              key={l.id}
-              href={`#${l.id}`}
-              data-cursor="hover"
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                aria-label={l.label}
+                data-cursor="hover"
               className={cn(
                 "group relative flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium transition-colors",
                 isActive ? "text-secondary-foreground" : "text-muted-foreground hover:text-foreground",

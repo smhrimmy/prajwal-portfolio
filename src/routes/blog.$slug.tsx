@@ -70,7 +70,7 @@ function BlogPost() {
           
           {post.image_url && (
             <div className="mt-8 rounded-2xl overflow-hidden aspect-video border border-border">
-              <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" />
+              <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
           )}
         </header>
