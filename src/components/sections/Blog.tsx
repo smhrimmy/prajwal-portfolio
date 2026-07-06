@@ -57,10 +57,11 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {filtered.map((p, i) => (
-          <Link
+          <a
             key={p.id}
-            to="/blog/$slug"
-            params={{ slug: p.slug }}
+            href={`https://prajwal-blog.vercel.app/${p.slug || p.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="block"
           >
             <motion.div
@@ -83,7 +84,7 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
             <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{p.excerpt || p.description || "No description provided."}</p>
             <ArrowUpRight className="absolute right-6 top-6 h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-secondary" />
             </motion.div>
-          </Link>
+          </a>
         ))}
         {filtered.length === 0 && (
           <p className="col-span-full py-10 text-center font-mono text-sm text-muted-foreground">

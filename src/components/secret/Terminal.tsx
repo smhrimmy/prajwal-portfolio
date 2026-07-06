@@ -111,6 +111,8 @@ export function Terminal() {
     }
   };
 
+  const getWidth = () => typeof window !== 'undefined' ? Math.min(500, window.innerWidth - 32) : 500;
+  
   return (
     <AnimatePresence>
       {open && (
@@ -120,10 +122,10 @@ export function Terminal() {
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           animate={{ 
             opacity: 1, y: 0, scale: 1,
-            ...(isMaximized ? { width: '100vw', height: '100vh', left: 0, bottom: 0, right: 0, top: 0, borderRadius: 0 } : { width: 500, height: 350 })
+            ...(isMaximized ? { width: '100vw', height: '100vh', left: 0, bottom: 0, right: 0, top: 0, borderRadius: 0 } : { width: getWidth(), height: 350 })
           }}
           exit={{ opacity: 0, y: 40, scale: 0.97 }}
-          className={`fixed z-50 flex flex-col overflow-hidden shadow-2xl bg-black/90 text-white backdrop-blur-xl border border-white/10 ${!isMaximized ? 'bottom-6 right-6 rounded-xl' : ''}`}
+          className={`fixed z-50 flex flex-col overflow-hidden shadow-2xl bg-black/90 text-white backdrop-blur-xl border border-white/10 ${!isMaximized ? 'bottom-6 right-6 lg:right-6 sm:right-6 max-w-[calc(100vw-32px)] rounded-xl' : ''}`}
           onClick={() => inputRef.current?.focus()}
         >
           {/* Title Bar */}

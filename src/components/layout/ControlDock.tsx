@@ -8,8 +8,9 @@ export function ControlDock() {
   const setTerminalOpen = useAppStore((s) => s.setTerminalOpen);
 
   return (
-    <div className="fixed left-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2 lg:flex">
+    <div className="fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 flex-row gap-2 lg:bottom-auto lg:left-6 lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-0 lg:flex-col shadow-xl lg:shadow-none p-2 lg:p-0 rounded-2xl glass lg:bg-transparent lg:border-none lg:backdrop-blur-none">
       <button
+
         onClick={toggleTheme}
         data-cursor="hover"
         title="Toggle theme"
