@@ -1,63 +1,54 @@
 import { createServerFn } from "@tanstack/react-start";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../lib/storage/supabaseAdapter";
 
 export interface BlogPostData {
   id: string;
   slug: string;
   title: string;
-  content: string;
+  content_html: string;
+  content_md: string;
   excerpt: string;
-  category: string;
-  seo_title: string;
-  meta_description: string;
-  json_ld: any;
-  read_time: string;
-  image_url: string;
   status: 'draft' | 'published';
-  published_at: string;
   created_at: string;
+  updated_at: string;
+  seo_title?: string;
+  meta_description?: string;
 }
 
 export const getBlogs = createServerFn({ method: "GET" }).handler(async (): Promise<BlogPostData[]> => {
-  return [
-    {
-      id: "dummy-1",
-      slug: "future-of-ai",
-      title: "The Future of AI in Web Development",
-      content: "<p>This is a dummy article...</p>",
-      excerpt: "Exploring how AI is reshaping frontend engineering.",
-      category: "AI",
-      seo_title: "The Future of AI in Web Development",
-      meta_description: "A look into AI tools for developers.",
-      json_ld: {},
-      read_time: "5 min",
-      image_url: "",
-      status: "published",
-      published_at: new Date().toISOString(),
-      created_at: new Date().toISOString(),
+  const { data, error } = await supabase
+    .from('articles')
+    .select('*')
+    .eq('status', 'published')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error("Error fetching blogs:", error);
+    return [];
+  }
+  return data as BlogPostData[];
+});
+
+export const getBlogBySlug = createServerFn({ method: "GET" })
+  .validator((slug: string) => slug)
+  .handler(async ({ data: slug }): Promise<BlogPostData | null> => {
+    const { data, error } = await supabase
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error) {
+      console.error("Error fetching blog by slug:", error);
+      return null;
     }
-  ];
-});
+    return data as BlogPostData;
+  });
 
-export const getBlogBySlug = createServerFn({ method: "GET" }).validator((slug: string) => slug).handler(async ({ data: slug }): Promise<BlogPostData | null> => {
-  return {
-    id: "dummy-1",
-    slug: slug,
-    title: "The Future of AI in Web Development",
-    content: "<p>This is a dummy article...</p>",
-    excerpt: "Exploring how AI is reshaping frontend engineering.",
-    category: "AI",
-    seo_title: "The Future of AI in Web Development",
-    meta_description: "A look into AI tools for developers.",
-    json_ld: {},
-    read_time: "5 min",
-    image_url: "",
-    status: "published",
-    published_at: new Date().toISOString(),
-    created_at: new Date().toISOString(),
-  };
-});
-
-export const saveBlog = createServerFn({ method: "POST" }).validator((post: Partial<BlogPostData>) => post).handler(async ({ data: post }) => {
-  return { success: true, data: { ...post, id: "dummy-new" } };
-});
+export const saveBlog = createServerFn({ method: "POST" })
+  .validator((post: Partial<BlogPostData>) => post)
+  .handler(async ({ data: post }) => {
+    const { data, error } = await supabase.from('articles').upsert(post).select().single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  });

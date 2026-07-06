@@ -28,9 +28,18 @@ function Heatmap() {
   );
 }
 
-export function GithubSection({ stats }: { stats?: any }) {
+import { useQuery } from "@tanstack/react-query";
+import { getGithubStatsFn } from "@/actions/github";
+
+export function GithubSection({ username }: { username: string }) {
+  const { data: stats, isLoading } = useQuery({
+    queryKey: ['github', username],
+    queryFn: () => getGithubStatsFn({ data: username }),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
   const currentStats = stats || {
-    username: githubStats.username,
+    username: username || githubStats.username,
     followers: githubStats.followers,
     stars: githubStats.stars,
     repos: githubStats.repos,
@@ -42,11 +51,11 @@ export function GithubSection({ stats }: { stats?: any }) {
   const statBoxes = [
     { icon: Users, label: "Followers", value: currentStats.followers },
     { icon: Star, label: "Stars", value: currentStats.stars },
-    { icon: GitCommit, label: "Commits '26", value: githubStats.commitsThisYear }, // Commits remain static until a more complex API fetches it
+    { icon: GitCommit, label: "Commits '26", value: currentStats.commitsThisYear || githubStats.commitsThisYear }, 
     { icon: Github, label: "Repos", value: currentStats.repos },
   ];
   return (
-    <section id="github" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="github" className={`relative mx-auto max-w-6xl px-6 py-28 ${isLoading ? 'opacity-50 transition-opacity' : 'opacity-100'}`}>
       <SectionHeading kicker="// telemetry" title="GitHub Logs" subtitle={`Activity from @${currentStats.username}`} />
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">

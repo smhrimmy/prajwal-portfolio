@@ -2,42 +2,45 @@ export type FileNode = { type: 'file'; content: string };
 export type DirNode = { type: 'dir'; contents: Record<string, FileNode | DirNode> };
 export type FSNode = FileNode | DirNode;
 
-export const defaultVFS: DirNode = {
-  type: 'dir',
-  contents: {
-    bin: { type: 'dir', contents: {} },
-    etc: { type: 'dir', contents: {} },
-    home: {
-      type: 'dir',
-      contents: {
-        guest: {
-          type: 'dir',
-          contents: {
-            'about.txt': { type: 'file', content: 'Full Stack & UI/UX Engineer with a passion for building interactive digital experiences.' },
-            'contact.txt': { type: 'file', content: 'Email: hello@prajwal.dev\nLocation: Earth' },
-            'resume.pdf': { type: 'file', content: '[PDF Binary - Use "resume" command to download]' },
-            Projects: {
-              type: 'dir',
-              contents: {
-                'project1.md': { type: 'file', content: '# Project 1\nA cool project I worked on.' }
-              }
-            },
-            Skills: {
-              type: 'dir',
-              contents: {
-                'frontend.txt': { type: 'file', content: 'React, Next.js, TailwindCSS, Framer Motion' },
-                'backend.txt': { type: 'file', content: 'Node.js, Supabase, PostgreSQL' }
+export function buildDynamicVFS(siteData: any): DirNode {
+  return {
+    type: 'dir',
+    contents: {
+      bin: { type: 'dir', contents: {} },
+      etc: { type: 'dir', contents: {} },
+      home: {
+        type: 'dir',
+        contents: {
+          guest: {
+            type: 'dir',
+            contents: {
+              'about.txt': { type: 'file', content: siteData?.site?.bio || 'Guest User' },
+              'contact.txt': { type: 'file', content: `Email: ${siteData?.site?.email || 'N/A'}\nLocation: Earth` },
+              'resume.md': { type: 'file', content: '# Resume\nRun `resume` command to view.' },
+              Projects: {
+                type: 'dir',
+                contents: (siteData?.projects || []).reduce((acc: any, p: any) => {
+                  acc[`${p.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase()}.md`] = { type: 'file', content: `# ${p.title}\n\n${p.description}` };
+                  return acc;
+                }, {})
+              },
+              Skills: {
+                type: 'dir',
+                contents: (siteData?.skills || []).reduce((acc: any, s: any) => {
+                  acc[`${s.category.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase()}.txt`] = { type: 'file', content: (s.items || []).join('\n') };
+                  return acc;
+                }, {})
               }
             }
           }
         }
-      }
-    },
-    var: { type: 'dir', contents: {} },
-    tmp: { type: 'dir', contents: {} },
-    secret: { type: 'dir', contents: { 'access.log': { type: 'file', content: 'Access denied.' } } }
-  }
-};
+      },
+      var: { type: 'dir', contents: {} },
+      tmp: { type: 'dir', contents: {} },
+      secret: { type: 'dir', contents: { 'access.log': { type: 'file', content: 'Access denied.' } } }
+    }
+  };
+}
 
 export class VirtualFileSystem {
   private root: DirNode;

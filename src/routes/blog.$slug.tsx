@@ -67,23 +67,18 @@ function BlogPost() {
         
         <header className="mb-12">
           <div className="flex items-center gap-3 font-mono text-[11px] text-muted-foreground mb-6">
-            <span className="rounded-full bg-secondary/15 px-2 py-0.5 text-secondary">{post.category}</span>
-            <span>{post.published_at?.split('T')[0] || "Just now"}</span>
-            <span>{post.read_time}</span>
+            <span className="rounded-full bg-secondary/15 px-2 py-0.5 text-secondary">Tech</span>
+            <span>{new Date(post.created_at).toLocaleDateString()}</span>
+            <span>5 min read</span>
           </div>
           
           <SectionHeading kicker="// article" title={post.title} />
-          
-          {post.image_url && (
-            <div className="mt-8 rounded-2xl overflow-hidden aspect-video border border-border">
-              <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
-            </div>
-          )}
         </header>
 
-        <article className="prose prose-invert prose-secondary max-w-none prose-headings:font-bold prose-a:text-secondary hover:prose-a:text-secondary/80">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
-        </article>
+        <article 
+          className="prose prose-invert prose-secondary max-w-none prose-headings:font-bold prose-a:text-secondary hover:prose-a:text-secondary/80"
+          dangerouslySetInnerHTML={{ __html: post.content_html || "" }}
+        />
       </div>
     </main>
   );

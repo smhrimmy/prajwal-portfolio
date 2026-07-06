@@ -2,7 +2,8 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Maximize2, Minus } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
-import { VirtualFileSystem } from "@/lib/terminal/vfs";
+import { useCmsStore } from "@/store/useCmsStore";
+import { VirtualFileSystem, buildDynamicVFS } from "@/lib/terminal/vfs";
 import { defaultRegistry } from "@/lib/terminal/registry";
 
 // Simple ANSI color parser for basic terminal colors
@@ -25,6 +26,7 @@ function parseANSI(text: string) {
 export function Terminal() {
   const open = useAppStore((s) => s.terminalOpen);
   const setOpen = useAppStore((s) => s.setTerminalOpen);
+  const store = useCmsStore();
   
   const [history, setHistory] = useState<{cwd: string, text: string}[]>([]);
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
@@ -36,7 +38,8 @@ export function Terminal() {
   const inputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
   
-  const vfs = useMemo(() => new VirtualFileSystem(), []);
+  // Rebuild VFS whenever store changes
+  const vfs = useMemo(() => new VirtualFileSystem(buildDynamicVFS(store)), [store]);
 
   useEffect(() => {
     if (open) {
@@ -45,7 +48,7 @@ export function Terminal() {
         setHistory([{ cwd: vfs.getPwd(), text: "Welcome to devOS.\nType 'help' to see available commands." }]);
       }
     }
-  }, [open, vfs]);
+  }, [open]);
   
   useEffect(() => { endRef.current?.scrollIntoView(); }, [history]);
 

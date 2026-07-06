@@ -31,6 +31,7 @@ export function SecretFeatures() {
   // konami + shortcuts
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (!e || !e.key) return;
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       if (key === KONAMI[idx.current]) {
         idx.current++;

@@ -1,0 +1,70 @@
+[
+  {
+    "id": "p1",
+    "title": "Vitvara Scalable Web App",
+    "codename": "VITVARA-01",
+    "description": "Engineered a responsive, user-centric web application using modern React best practices. Designed and implemented scalable API functionalities with meticulous optimization for performance and security.",
+    "tags": [
+      "React",
+      "JavaScript",
+      "HTML/CSS",
+      "REST APIs"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "#",
+    "featured": true,
+    "accent": "#4f46e5"
+  },
+  {
+    "id": "p2",
+    "title": "Custom Client Platforms",
+    "codename": "FREELANCE-CORE",
+    "description": "Architected and delivered custom websites and web applications leveraging modern frontend and backend tech stacks based on bespoke client requirements.",
+    "tags": [
+      "Full Stack",
+      "React",
+      "Node",
+      "MySQL"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "#",
+    "featured": null,
+    "accent": "#06b6d4"
+  },
+  {
+    "id": "p3",
+    "title": "Hosting & DNS Diagnostics",
+    "codename": "SUPPORT-OPS",
+    "description": "Provided robust troubleshooting tools and scripts for resolving DNS, WordPress, and server configurations in shared hosting environments.",
+    "tags": [
+      "PHP",
+      "WordPress",
+      "DNS",
+      "cPanel"
+    ],
+    "category": "Support & Infrastructure",
+    "github": "#",
+    "live": "#",
+    "featured": null,
+    "accent": "#a855f7"
+  },
+  {
+    "id": "p4",
+    "title": "High-Performance Portfolio Engine",
+    "codename": "PRAXEL",
+    "description": "A telemetry-style interactive portfolio built to demonstrate fluid animations, high performance, and deep frontend engineering expertise.",
+    "tags": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "GSAP"
+    ],
+    "category": "Frontend",
+    "github": "#",
+    "live": "https://praxel.space/",
+    "featured": true,
+    "accent": "#22c55e"
+  }
+]

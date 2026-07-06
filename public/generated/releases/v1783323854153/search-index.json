@@ -1,0 +1,79 @@
+{
+  "projects": [
+    {
+      "title": "Vitvara Scalable Web App",
+      "description": "Engineered a responsive, user-centric web application using modern React best practices. Designed and implemented scalable API functionalities with meticulous optimization for performance and security.",
+      "type": "project"
+    },
+    {
+      "title": "Custom Client Platforms",
+      "description": "Architected and delivered custom websites and web applications leveraging modern frontend and backend tech stacks based on bespoke client requirements.",
+      "type": "project"
+    },
+    {
+      "title": "Hosting & DNS Diagnostics",
+      "description": "Provided robust troubleshooting tools and scripts for resolving DNS, WordPress, and server configurations in shared hosting environments.",
+      "type": "project"
+    },
+    {
+      "title": "High-Performance Portfolio Engine",
+      "description": "A telemetry-style interactive portfolio built to demonstrate fluid animations, high performance, and deep frontend engineering expertise.",
+      "type": "project"
+    }
+  ],
+  "articles": [
+    {
+      "title": "why DNS takes log to propagate ",
+      "type": "article",
+      "slug": "w"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "JavaScript",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "PHP",
+        "SQL"
+      ],
+      "type": "skill"
+    },
+    {
+      "category": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Vite",
+        "Tailwind CSS",
+        "Framer Motion"
+      ],
+      "type": "skill"
+    },
+    {
+      "category": "Backend & Database",
+      "items": [
+        "Node.js",
+        "Express",
+        "MySQL",
+        "MongoDB",
+        "Supabase"
+      ],
+      "type": "skill"
+    },
+    {
+      "category": "Infrastructure & Tools",
+      "items": [
+        "Git",
+        "Docker",
+        "Linux",
+        "cPanel",
+        "WordPress",
+        "DNS"
+      ],
+      "type": "skill"
+    }
+  ]
+}

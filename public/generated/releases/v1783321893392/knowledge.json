@@ -1,0 +1,83 @@
+{
+  "identity": "Prajwal",
+  "bio": "Crafting digital experiences with precision and passion. testing the webstei editor ",
+  "portfolio_context": "This is a portfolio OS. The following projects and skills represent the developer's experience.",
+  "projects": [
+    {
+      "name": "Vitvara Scalable Web App",
+      "what_it_does": "Engineered a responsive, user-centric web application using modern React best practices. Designed and implemented scalable API functionalities with meticulous optimization for performance and security."
+    },
+    {
+      "name": "Custom Client Platforms",
+      "what_it_does": "Architected and delivered custom websites and web applications leveraging modern frontend and backend tech stacks based on bespoke client requirements."
+    },
+    {
+      "name": "Hosting & DNS Diagnostics",
+      "what_it_does": "Provided robust troubleshooting tools and scripts for resolving DNS, WordPress, and server configurations in shared hosting environments."
+    },
+    {
+      "name": "High-Performance Portfolio Engine",
+      "what_it_does": "A telemetry-style interactive portfolio built to demonstrate fluid animations, high performance, and deep frontend engineering expertise."
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "category": "Languages",
+      "items": [
+        "JavaScript",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "PHP",
+        "SQL"
+      ]
+    },
+    {
+      "id": 2,
+      "category": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Vite",
+        "Tailwind CSS",
+        "Framer Motion"
+      ]
+    },
+    {
+      "id": 3,
+      "category": "Backend & Database",
+      "items": [
+        "Node.js",
+        "Express",
+        "MySQL",
+        "MongoDB",
+        "Supabase"
+      ]
+    },
+    {
+      "id": 4,
+      "category": "Infrastructure & Tools",
+      "items": [
+        "Git",
+        "Docker",
+        "Linux",
+        "cPanel",
+        "WordPress",
+        "DNS"
+      ]
+    }
+  ],
+  "terminal_commands": [
+    "help",
+    "ls",
+    "cd",
+    "cat",
+    "clear",
+    "echo",
+    "whoami",
+    "gui",
+    "theme",
+    "resume"
+  ]
+}

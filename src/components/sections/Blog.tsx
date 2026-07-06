@@ -12,10 +12,14 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
   const filtered = useMemo(
     () =>
       (Array.isArray(posts) ? posts : []).filter(
-        (p) =>
-          (cat === "All" || p.category === cat) &&
-          (p.title.toLowerCase().includes(q.toLowerCase()) ||
-            p.excerpt.toLowerCase().includes(q.toLowerCase())),
+        (p) => {
+          const postCategory = p.category || "Tech";
+          const matchCat = cat === "All" || postCategory === cat;
+          const qLower = (q || "").toLowerCase();
+          const title = (p.title || "").toLowerCase();
+          const excerpt = (p.excerpt || p.description || "").toLowerCase();
+          return matchCat && (title.includes(qLower) || excerpt.includes(qLower));
+        }
       ),
     [cat, q],
   );
@@ -57,7 +61,7 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
             key={p.id}
             to="/blog/$slug"
             params={{ slug: p.slug }}
-            className="glass corner-brackets group relative rounded-2xl p-6 block"
+            className="block"
           >
             <motion.div
             data-cursor="hover"
@@ -66,17 +70,17 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
             whileHover={{ y: -4 }}
-            className="glass corner-brackets group relative rounded-2xl p-6"
+            className="glass corner-brackets group relative rounded-2xl p-6 h-full"
           >
             <div className="flex items-center gap-3 font-mono text-[11px] text-muted-foreground">
-              <span className="rounded-full bg-secondary/15 px-2 py-0.5 text-secondary">{p.category}</span>
-              <span>{p.date}</span>
+              <span className="rounded-full bg-secondary/15 px-2 py-0.5 text-secondary">{p.category || 'Tech'}</span>
+              <span>{new Date(p.created_at).toLocaleDateString()}</span>
               <span className="flex items-center gap-1">
-                <Clock className="h-3 w-3" /> {p.readTime}
+                <Clock className="h-3 w-3" /> {p.read_time || '5 min'}
               </span>
             </div>
             <h3 className="mt-3 text-lg font-bold leading-snug">{p.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{p.excerpt}</p>
+            <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{p.excerpt || p.description || "No description provided."}</p>
             <ArrowUpRight className="absolute right-6 top-6 h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-secondary" />
             </motion.div>
           </Link>

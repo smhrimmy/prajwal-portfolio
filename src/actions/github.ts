@@ -1,11 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { SupabaseAdapter } from "@/lib/storage/supabaseAdapter";
 
-export const getGithubStatsFn = createServerFn({ method: "GET" }).handler(async () => {
+export const getGithubStatsFn = createServerFn({ method: "POST" })
+  .validator((d: string) => d)
+  .handler(async ({ data: username }) => {
   try {
-    const site = await SupabaseAdapter.getSite();
-    const username = site.github_username || "O-FALLEN-ANGEL-O";
-
     const [userRes, reposRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`),
       fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=pushed`)

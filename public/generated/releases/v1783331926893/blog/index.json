@@ -1,0 +1,23 @@
+[
+  {
+    "id": "a192900b-465b-437d-ac7b-3cd00b74fbaf",
+    "slug": "b",
+    "title": "best hosting provider that are affoable",
+    "status": "published",
+    "created_at": "2026-07-06T09:57:55.986598+00:00"
+  },
+  {
+    "id": "8530dc74-5783-41dc-96d7-f38855f435fe",
+    "slug": "t",
+    "title": "top ai models for codding in local device",
+    "status": "published",
+    "created_at": "2026-07-06T08:01:54.691697+00:00"
+  },
+  {
+    "id": "1de7e13b-6607-49c1-b380-686d8d5161f7",
+    "slug": "w",
+    "title": "why DNS takes log to propagate ",
+    "status": "published",
+    "created_at": "2026-07-06T06:11:27.362706+00:00"
+  }
+]
