@@ -74,13 +74,17 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-4 py-1.5 font-mono text-xs text-success"
+          className="mx-auto mb-6 inline-flex items-center gap-3 rounded-full border border-border glass px-4 py-1.5 font-mono text-xs text-muted-foreground"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-          </span>
-          {site.available ? "Available for Work" : "Currently Busy"}
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+            </span>
+            <span className="text-success">SYSTEM ONLINE</span>
+          </div>
+          <span className="h-3 w-[1px] bg-border" />
+          <span>UPTIME: {Math.floor(Date.now() / 100000) % 9999} HRS</span>
         </motion.div>
 
         <motion.p
@@ -88,7 +92,7 @@ export function Hero() {
           animate={{ opacity: 1 }}
           className="font-mono text-sm text-secondary"
         >
-          {site.handle} · {site.location}
+          {site.handle} // {site.location}
         </motion.p>
 
         <motion.h1
@@ -100,12 +104,12 @@ export function Hero() {
         </motion.h1>
 
         <div className="mt-5 flex h-8 items-center justify-center font-mono text-lg text-muted-foreground sm:text-2xl">
-          <span className="text-secondary">&gt;</span>
-          <span className="ml-2 text-foreground">{site.role || "Full Stack Engineer"}</span>
-          <span className="ml-0.5 animate-pulse text-secondary">▋</span>
+          <span className="text-secondary">$&gt;</span>
+          <span className="ml-2 text-foreground">chmod +x build_web.sh</span>
+          <span className="ml-0.5 animate-pulse text-secondary">_</span>
         </div>
 
-        <p className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground sm:text-base">
+        <p className="mx-auto mt-6 max-w-2xl text-sm text-muted-foreground sm:text-base leading-relaxed">
           {site.bio}
         </p>
 
@@ -114,18 +118,18 @@ export function Hero() {
             ref={ctaRef}
             href="#projects"
             data-cursor="hover"
-            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-semibold text-primary-foreground neon-glow transition-transform hover:scale-105"
+            className="group inline-flex items-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-bold transition-transform hover:scale-105"
           >
-            View My Work
+            Deployments
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href={site.resumeUrl || "#"}
             data-cursor="hover"
-            className="inline-flex items-center gap-2 rounded-full border border-border glass px-6 py-3 text-sm font-semibold transition-colors hover:border-secondary/50"
+            className="inline-flex items-center gap-2 rounded-full border border-border glass px-6 py-3 text-sm font-semibold transition-colors hover:border-secondary/50 hover:text-secondary"
           >
-            <Download className="h-4 w-4" />
-            Resume
+            <Terminal className="h-4 w-4" />
+            init_contact
           </a>
         </div>
       </motion.div>
