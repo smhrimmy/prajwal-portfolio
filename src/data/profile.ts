@@ -8,7 +8,7 @@ export const profile = {
     "WordPress Specialist",
     "Web Support Engineer",
   ],
-  bio: "Dedicated and adaptable professional with a proactive attitude and the ability to learn quickly. Strong work ethic and effective communication skills. Eager to contribute to a dynamic team and support organizational goals.",
+  bio: "I'm a full-stack developer with a passion for building clean, modern web applications. Whether I'm designing an intuitive UI or architecting robust backend services, I love tackling tough technical challenges and delivering polished, scalable solutions.",
   location: "Mangalore, Karnataka",
   available: true,
   email: "pdlkpt@gmail.com",
@@ -20,5 +20,5 @@ export const stats = [
   { label: "Years Experience", value: 2, suffix: "+" },
   { label: "Projects Delivered", value: 24, suffix: "+" },
   { label: "Happy Clients", value: 18, suffix: "" },
-  { label: "Certifications", value: 4, suffix: "" },
+  { label: "Certifications", value: 1, suffix: "" },
 ];

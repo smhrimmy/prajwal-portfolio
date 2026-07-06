@@ -85,8 +85,5 @@ export interface Certification {
 }
 
 export const certifications: Certification[] = [
-  { name: "Full Stack Web Development", issuer: "Karnataka Govt Polytechnic", year: "2024", verifyUrl: "#" },
-  { name: "React Developer", issuer: "Placeholder", year: "2024", verifyUrl: "#" },
-  { name: "Frontend UI/UX", issuer: "Placeholder", year: "2023", verifyUrl: "#" },
-  { name: "Web Hosting & DNS", issuer: "Placeholder", year: "2024", verifyUrl: "#" },
+  { name: "Full Stack Web Development", issuer: "Karnataka Govt Polytechnic", year: "2024", verifyUrl: "#" }
 ];
