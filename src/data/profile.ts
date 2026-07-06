@@ -8,7 +8,7 @@ export const profile = {
     "WordPress Specialist",
     "Web Support Engineer",
   ],
-  bio: "I'm a full-stack developer with a passion for building clean, modern web applications. Whether I'm designing an intuitive UI or architecting robust backend services, I love tackling tough technical challenges and delivering polished, scalable solutions.",
+  bio: "I started in web support, figuring out why deployments failed and servers threw 500s. Today, I build developer tools, automation platforms, and robust web applications where performance and usability matter.",
   location: "Mangalore, Karnataka",
   available: true,
   email: "pdlkpt@gmail.com",
