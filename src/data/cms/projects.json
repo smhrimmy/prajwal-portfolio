@@ -64,5 +64,207 @@
     "live": "https://praxel.space/",
     "featured": true,
     "accent": "#22c55e"
+  },
+  {
+    "id": "prax_0",
+    "title": "HR+ Platform – Internal HRMS & Operations",
+    "codename": "HRPLATFO",
+    "description": "A fully featured internal HR platform supporting leaves, payroll, recruitment, RLS-based permissions, helpdesk, OKRs, and AI-powered resume matching. Built with Supabase, PostgreSQL, and custom role policies.",
+    "tags": [
+      "Supabase",
+      "PostgreSQL",
+      "React",
+      "Tailwind",
+      "Framer Motion",
+      "SQL RLS"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://hrms-five-alpha.vercel.app/",
+    "featured": true,
+    "accent": "#06b6d4",
+    "image": "https://images.unsplash.com/photo-1612832021074-1302cdab8f37?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_1",
+    "title": "SmartTracker+ – Educational Fee Management App",
+    "codename": "SMARTTRA",
+    "description": "A modern role-based web app for schools to track student fee payments, manage school and course data, and export Excel reports. Built with Next.js, Supabase, and ShadCN UI.",
+    "tags": [
+      "Next.js",
+      "React",
+      "Supabase",
+      "Tailwind CSS",
+      "ShadCN",
+      "PostgreSQL",
+      "TypeScript"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://client1-mu.vercel.app/",
+    "featured": true,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_2",
+    "title": "Sparkle",
+    "codename": "SPARKLE",
+    "description": "An online jewelry store with product browsing and gold exchange program.this is updated version of Sparkling Gem Bazaar with internal server  Frontend finished, backend not finished.",
+    "tags": [
+      "Next.js",
+      "React",
+      "CSS"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://sparky-lilac.vercel.app/",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_3",
+    "title": "Sparkling Gem Bazaar",
+    "codename": "SPARKLIN",
+    "description": "An online jewelry store with product browsing and gold exchange program. Frontend finished, backend not finished.",
+    "tags": [
+      "Next.js",
+      "React",
+      "CSS"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://sparkling-gem-bazaar.vercel.app/",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_4",
+    "title": "TermiAI – Offline AI Terminal Assistant",
+    "codename": "TERMIAIO",
+    "description": "A personal AI assistant that converts natural language into shell commands and runs them locally using CMD or PowerShell. Frontend complete and backend with AI is in progress.",
+    "tags": [
+      "PyQt5",
+      "FastAPI",
+      "Ollama",
+      "LLM",
+      "CMD",
+      "PowerShell"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://termi-ai-scribe.vercel.app/",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_5",
+    "title": "Real Estate Website",
+    "codename": "REALESTA",
+    "description": "A comprehensive real estate platform with property listings.",
+    "tags": [
+      "React",
+      "Frontend",
+      "CSS"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://real-estate1-virid.vercel.app",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_6",
+    "title": "Remote PC Control UI",
+    "codename": "REMOTEPC",
+    "description": "Frontend dashboard for controlling and monitoring your PC remotely with real-time system stats, file explorer, screenshots, and command execution.",
+    "tags": [
+      "React",
+      "Tailwind CSS",
+      "Axios",
+      "FastAPI"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://remote-pc1.onrender.com/",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1581091870630-bc71f0c7b1b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_7",
+    "title": "Tech Chat App",
+    "codename": "TECHCHAT",
+    "description": "Real-time messaging app for tech enthusiasts with group chat, file sharing, and emoji reactions.",
+    "tags": [
+      "JavaScript",
+      "React",
+      "API",
+      "CSS"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "#",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_8",
+    "title": "Portfolio Dashboard",
+    "codename": "PORTFOLI",
+    "description": "A portfolio management system with analytics, project tracking, and client tools.",
+    "tags": [
+      "React",
+      "PHP",
+      "MySQL",
+      "Chart.js"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "#",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_9",
+    "title": "AI To-Do Hub",
+    "codename": "AITODOHU",
+    "description": "A dynamic To-Do List app combining AI with Notion and Google Keep features.",
+    "tags": [
+      "React",
+      "PHP",
+      "MySQL",
+      "Chart.js"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://noti-keep-ai-hub.vercel.app/",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    "id": "prax_10",
+    "title": "Next.js AI Chatbot",
+    "codename": "NEXTJSAI",
+    "description": "An AI-powered chatbot built with Next.js, offering a modern conversational UI.",
+    "tags": [
+      "Next.js",
+      "React",
+      "AI",
+      "TypeScript"
+    ],
+    "category": "Full Stack",
+    "github": "#",
+    "live": "https://ai-chatbot-mu-brown.vercel.app/",
+    "featured": false,
+    "accent": "#8b5cf6",
+    "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
   }
 ]
