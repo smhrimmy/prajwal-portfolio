@@ -36,6 +36,15 @@ const floatIcons = [
   { Icon: GitBranch, x: "50%", y: "12%", d: 0.5 },
 ];
 
+function UptimeCounter() {
+  const [uptime, setUptime] = useState("0000");
+  useEffect(() => {
+    setUptime(String(Math.floor(Date.now() / 100000) % 9999));
+  }, []);
+  return <span>UPTIME: {uptime} HRS</span>;
+}
+
+
 export function Hero() {
   const site = useCmsStore((s) => s.site);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -84,7 +93,7 @@ export function Hero() {
             <span className="text-success">SYSTEM ONLINE</span>
           </div>
           <span className="h-3 w-[1px] bg-border" />
-          <span>UPTIME: {Math.floor(Date.now() / 100000) % 9999} HRS</span>
+          <UptimeCounter />
         </motion.div>
 
         <motion.p
