@@ -21,6 +21,7 @@ import { CommandPalette } from "@/components/secret/CommandPalette";
 import { Terminal } from "@/components/secret/Terminal";
 import { SecretFeatures } from "@/components/secret/SecretFeatures";
 import { useCmsStore } from "@/store/useCmsStore";
+import { getArticlesFn } from "@/actions/cms";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -43,19 +44,27 @@ function Index() {
           return res.ok ? await res.json() : null;
         };
 
-        const [siteRes, projRes, skillRes, themeRes, blogRes] = await Promise.all([
+        const [siteRes, projRes, skillRes, themeRes] = await Promise.all([
           fetchJson(`/generated/site.json?t=${t}`),
           fetchJson(`/generated/projects.json?t=${t}`),
           fetchJson(`/generated/skills.json?t=${t}`),
           fetchJson(`/generated/theme.json?t=${t}`),
-          fetchJson(`/generated/blog/index.json?t=${t}`)
         ]);
+        
+        // Fetch articles dynamically from server function to avoid Vercel ephemeral storage issues
+        try {
+          const dbArticles = await getArticlesFn();
+          if (dbArticles && dbArticles.length > 0) setBlogs(dbArticles);
+        } catch (err) {
+          console.warn("Failed to fetch dynamic articles, falling back to JSON", err);
+          const blogRes = await fetchJson(`/generated/blog/index.json?t=${t}`);
+          if (blogRes && blogRes.length > 0) setBlogs(blogRes);
+        }
 
         if (siteRes && Object.keys(siteRes).length > 0) setSite(siteRes);
         if (projRes && projRes.length > 0) setProjects(projRes);
         if (skillRes && skillRes.length > 0) setSkills(skillRes);
         if (themeRes && Object.keys(themeRes).length > 0) setTheme(themeRes);
-        if (blogRes && blogRes.length > 0) setBlogs(blogRes);
       } catch (e) {
         console.error("Failed to fetch latest CMS data", e);
       }

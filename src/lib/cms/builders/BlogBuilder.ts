@@ -24,9 +24,11 @@ export const BlogBuilderWorker: CMSPluginWorker = {
       id: a.id,
       slug: a.slug,
       title: a.title,
-      description: a.description,
+      excerpt: a.excerpt,
+      category: a.category?.name || "Tech",
       status: a.status,
-      created_at: a.created_at
+      created_at: a.created_at,
+      read_time: a.read_time || "5 min"
     }));
     fs.writeFileSync(path.join(blogDir, 'index.json'), JSON.stringify(index, null, 2));
 
