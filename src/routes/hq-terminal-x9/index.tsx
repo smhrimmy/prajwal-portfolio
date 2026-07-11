@@ -7,10 +7,6 @@ import { getArticlesFn, saveArticleFn, deleteArticleFn } from "../../actions/cms
 import { runPublishPipelineFn, getPublishStatusFn } from "../../actions/pipeline";
 import { ArticleEditor } from "../../components/cms/ArticleEditor";
 import { MediaLibrary } from "../../components/cms/MediaLibrary";
-import * as pkg from "react-resizable-panels";
-const PanelGroup = pkg.PanelGroup || (pkg as any).default?.PanelGroup;
-const Panel = pkg.Panel || (pkg as any).default?.Panel;
-const PanelResizeHandle = pkg.PanelResizeHandle || (pkg as any).default?.PanelResizeHandle;
 import { Check, X, Loader2, Play } from "lucide-react";
 
 export const Route = createFileRoute("/hq-terminal-x9/")({

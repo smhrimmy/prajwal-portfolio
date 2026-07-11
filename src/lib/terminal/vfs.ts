@@ -46,7 +46,7 @@ export class VirtualFileSystem {
   private root: DirNode;
   private cwd: string;
 
-  constructor(initialState = defaultVFS) {
+  constructor(initialState = buildDynamicVFS(null)) {
     this.root = initialState;
     this.cwd = '/home/guest';
   }

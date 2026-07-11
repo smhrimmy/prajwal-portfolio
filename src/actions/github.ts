@@ -58,6 +58,7 @@ export const getGithubStatsFn = createServerFn({ method: "POST" })
       followers: user.followers,
       stars,
       repos: user.public_repos,
+      commitsThisYear: 0,
       languages,
       repositories: topRepos
     };

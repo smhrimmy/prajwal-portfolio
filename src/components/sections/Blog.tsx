@@ -13,15 +13,15 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
     () =>
       (Array.isArray(posts) ? posts : []).filter(
         (p) => {
-          const postCategory = p.category || "Tech";
-          const matchCat = cat === "All" || postCategory === cat;
+          const catName = typeof p.category === 'object' && p.category ? p.category.name : (p.category || "Tech");
+          const matchCat = cat === "All" || catName === cat;
           const qLower = (q || "").toLowerCase();
           const title = (p.title || "").toLowerCase();
           const excerpt = (p.excerpt || p.description || "").toLowerCase();
           return matchCat && (title.includes(qLower) || excerpt.includes(qLower));
         }
       ),
-    [cat, q],
+    [posts, cat, q]
   );
 
   return (
@@ -56,36 +56,38 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {filtered.map((p, i) => (
-          <a
-            key={p.id}
-            href={`https://prajwal-blog.vercel.app/${p.slug || p.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <motion.div
-            data-cursor="hover"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            whileHover={{ y: -4 }}
-            className="glass corner-brackets group relative rounded-2xl p-6 h-full"
-          >
-            <div className="flex items-center gap-3 font-mono text-[11px] text-muted-foreground">
-              <span className="rounded-full bg-secondary/15 px-2 py-0.5 text-secondary">{p.category || 'Tech'}</span>
-              <span>{new Date(p.created_at).toLocaleDateString()}</span>
-              <span className="flex items-center gap-1">
-                <Clock className="h-3 w-3" /> {p.read_time || '5 min'}
-              </span>
-            </div>
-            <h3 className="mt-3 text-lg font-bold leading-snug">{p.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{p.excerpt || p.description || "No description provided."}</p>
-            <ArrowUpRight className="absolute right-6 top-6 h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-secondary" />
-            </motion.div>
-          </a>
-        ))}
+        {filtered.filter(p => p.status === 'published' || !p.status).map((p, i) => {
+          const catName = typeof p.category === 'object' && p.category ? p.category.name : (p.category || 'Tech');
+          return (
+            <Link
+              key={p.id}
+              to="/blog/$slug"
+              params={{ slug: p.slug || p.id }}
+              className="block"
+            >
+              <motion.div
+                data-cursor="hover"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ y: -4 }}
+                className="glass corner-brackets group relative rounded-2xl p-6 h-full"
+              >
+                <div className="flex items-center gap-3 font-mono text-[11px] text-muted-foreground">
+                  <span className="rounded-full bg-secondary/15 px-2 py-0.5 text-secondary">{catName}</span>
+                  <span>{new Date(p.created_at).toLocaleDateString()}</span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="h-3 w-3" /> {p.read_time || '5 min'}
+                  </span>
+                </div>
+                <h3 className="mt-3 text-lg font-bold leading-snug">{p.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{p.excerpt || p.description || "No description provided."}</p>
+                <ArrowUpRight className="absolute right-6 top-6 h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-secondary" />
+              </motion.div>
+            </Link>
+          );
+        })}
         {filtered.length === 0 && (
           <p className="col-span-full py-10 text-center font-mono text-sm text-muted-foreground">
             No transmissions found.

@@ -35,13 +35,14 @@ export const getSiteDataFn = createServerFn({ method: "GET" }).handler(async ():
   const skills = readGeneratedJson('skills.json', []);
   const theme = readGeneratedJson('theme.json', {});
   
-  // Blog index contains the list of published posts
   const blogs = readGeneratedJson('blog/index.json', []);
+  const github = readGeneratedJson('github.json', {});
   return {
     site,
     projects,
     skills,
     theme,
     blogs,
+    github,
   };
 });

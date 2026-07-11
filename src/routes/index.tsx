@@ -23,14 +23,23 @@ import { SecretFeatures } from "@/components/secret/SecretFeatures";
 import { useCmsStore } from "@/store/useCmsStore";
 import { getArticlesFn } from "@/actions/cms";
 
+import { useQuery } from '@tanstack/react-query';
+
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
   const [mounted, setMounted] = useState(false);
-  const [blogs, setBlogs] = useState<any[]>([]);
+  const [fallbackBlogs, setFallbackBlogs] = useState<any[]>([]);
   const { setSite, setProjects, setSkills, setTheme, site } = useCmsStore();
+
+  // Auto-updating query for articles
+  const { data: dbArticles } = useQuery({
+    queryKey: ['articles'],
+    queryFn: () => getArticlesFn(),
+    refetchInterval: 10000, // Auto update every 10 seconds
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -51,15 +60,9 @@ function Index() {
           fetchJson(`/generated/theme.json?t=${t}`),
         ]);
         
-        // Fetch articles dynamically from server function to avoid Vercel ephemeral storage issues
-        try {
-          const dbArticles = await getArticlesFn();
-          if (dbArticles && dbArticles.length > 0) setBlogs(dbArticles);
-        } catch (err) {
-          console.warn("Failed to fetch dynamic articles, falling back to JSON", err);
-          const blogRes = await fetchJson(`/generated/blog/index.json?t=${t}`);
-          if (blogRes && blogRes.length > 0) setBlogs(blogRes);
-        }
+        // Fetch JSON fallback for blogs in case db fails
+        const blogRes = await fetchJson(`/generated/blog/index.json?t=${t}`);
+        if (blogRes && blogRes.length > 0) setFallbackBlogs(blogRes);
 
         if (siteRes && Object.keys(siteRes).length > 0) setSite(siteRes);
         if (projRes && projRes.length > 0) setProjects(projRes);
@@ -95,7 +98,7 @@ function Index() {
         <Experience />
         <Certifications />
         <GithubSection username={site?.github_username || "O-FALLEN-ANGEL-O"} />
-        <Blog posts={blogs} />
+        <Blog posts={(dbArticles && dbArticles.length > 0) ? dbArticles : fallbackBlogs} />
         <Contact />
       </main>
       <Footer />

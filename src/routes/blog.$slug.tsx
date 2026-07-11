@@ -17,24 +17,25 @@ export const Route = createFileRoute("/blog/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
+    const ld = loaderData as any;
     return {
       meta: [
-        { title: loaderData.seo_title || loaderData.title },
-        { name: "description", content: loaderData.meta_description || loaderData.excerpt },
-        { property: "og:title", content: loaderData.seo_title || loaderData.title },
-        { property: "og:description", content: loaderData.meta_description || loaderData.excerpt },
-        { property: "og:image", content: loaderData.image_url },
+        { title: ld.seo_title || ld.title },
+        { name: "description", content: ld.meta_description || ld.excerpt },
+        { property: "og:title", content: ld.seo_title || ld.title },
+        { property: "og:description", content: ld.meta_description || ld.excerpt },
+        { property: "og:image", content: ld.image_url },
         { property: "og:type", content: "article" },
       ],
       scripts: [
         {
           type: "application/ld+json",
-          children: JSON.stringify(loaderData.json_ld || {
+          children: JSON.stringify(ld.json_ld || {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            "headline": loaderData.title,
-            "image": [loaderData.image_url],
-            "datePublished": loaderData.published_at,
+            "headline": ld.title,
+            "image": [ld.image_url],
+            "datePublished": ld.published_at,
             "author": [{
               "@type": "Person",
               "name": "Prajwal DL"
