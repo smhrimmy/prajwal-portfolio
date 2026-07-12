@@ -1,0 +1,9 @@
+{
+  "engine": "glassmorphism",
+  "overrides": {
+    "projects": "apple",
+    "contact": "bento",
+    "hero": "bento",
+    "blog": "minimal"
+  }
+}

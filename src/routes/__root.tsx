@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { useCmsStore } from "../store/useCmsStore";
 
 import appCss from "../styles.css?url";
 function NotFoundComponent() {
@@ -112,6 +113,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const theme = useCmsStore((s: any) => s.theme);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.classList.remove(
+        "theme-cyberpunk", 
+        "theme-minimal", 
+        "theme-retro", 
+        "theme-glassmorphism",
+        "light",
+        "dark"
+      );
+      const activeTheme = theme?.engine || "cyberpunk";
+      document.documentElement.classList.add(`theme-${activeTheme}`);
+    }
+  }, [theme?.engine]);
 
   return (
     <html lang="en" suppressHydrationWarning>

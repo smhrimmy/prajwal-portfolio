@@ -13,7 +13,7 @@ function Heatmap() {
   });
   const shade = ["bg-muted", "bg-secondary/25", "bg-secondary/45", "bg-secondary/70", "bg-secondary"];
   return (
-    <div className="grid grid-flow-col grid-rows-7 gap-1 overflow-x-auto">
+    <div data-portfolio-component="githubsection" className="grid grid-flow-col grid-rows-7 gap-1 overflow-x-auto">
       {cells.map((c, i) => (
         <motion.span
           key={i}

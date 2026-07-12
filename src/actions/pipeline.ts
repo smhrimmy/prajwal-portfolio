@@ -27,7 +27,7 @@ export const runPublishPipelineFn = createServerFn({ method: "POST" })
       { data: site },
       { data: projects },
       { data: skills },
-      { data: theme },
+      { data: themeDb },
       { data: articles }
     ] = await Promise.all([
       supabase.from("site").select("*").eq("id", 1).single(),
@@ -36,6 +36,19 @@ export const runPublishPipelineFn = createServerFn({ method: "POST" })
       supabase.from("theme").select("*").eq("id", 1).single(),
       supabase.from("articles").select("*").eq("status", "published").order("created_at", { ascending: false })
     ]);
+
+    let theme = { ...(themeDb || {}) };
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const configPath = path.join(process.cwd(), 'src', 'data', 'cms', 'engine_config.json');
+      if (fs.existsSync(configPath)) {
+        const localConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        theme = { ...theme, ...localConfig };
+      }
+    } catch (e) {
+      console.error("Failed to read local engine config in pipeline", e);
+    }
 
     const dbData = { site, projects, skills, theme, articles };
 

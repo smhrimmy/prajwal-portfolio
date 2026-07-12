@@ -5,7 +5,7 @@ import { SectionHeading, RevealGroup, RevealItem } from "@/components/ui/reveal"
 
 export function Certifications() {
   return (
-    <section id="certifications" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section data-portfolio-component="certifications" id="certifications" className="relative mx-auto max-w-6xl px-6 py-28">
       <SectionHeading kicker="// credentials" title="Certifications & Education" subtitle="Verified achievements and academic background." />
 
       <RevealGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

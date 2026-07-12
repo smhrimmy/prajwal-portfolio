@@ -12,7 +12,7 @@ export function Skills() {
   const filtered = cat === "All" ? storeSkills : storeSkills.filter((s) => s.category === cat);
 
   return (
-    <section id="skills" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section data-portfolio-component="skills" id="skills" className="relative mx-auto max-w-6xl px-6 py-28">
       <SectionHeading kicker="// proficiency" title="Tech Stack" subtitle="Core technologies, frameworks, and tools I use to build and operate." />
 
       <div className="mb-10 flex flex-wrap justify-center gap-2">

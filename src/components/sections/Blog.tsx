@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 
-export function Blog({ posts = [] }: { posts?: any[] }) {
+export function Blog({ posts = [], isFullPage = false }: { posts?: any[]; isFullPage?: boolean }) {
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
 
@@ -24,16 +24,23 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
     [posts, cat, q]
   );
 
+  const INITIAL_COUNT = 4;
+  
+  const currentPosts = isFullPage ? filtered : filtered.slice(0, INITIAL_COUNT);
+  const hasMore = !isFullPage && filtered.length > INITIAL_COUNT;
+
   return (
-    <section id="blog" className="relative mx-auto max-w-6xl px-6 py-28">
-      <SectionHeading kicker="// transmissions" title="Latest Articles" subtitle="Notes on frontend, motion and the craft." />
+    <section data-portfolio-component="blog" id="blog" className={cn("relative mx-auto max-w-6xl", isFullPage ? "px-0 py-0" : "px-6 py-28")}>
+      {!isFullPage && (
+        <SectionHeading kicker="// transmissions" title="Latest Articles" subtitle="Notes on frontend, motion and the craft." />
+      )}
 
       <div className="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
         <div className="flex flex-wrap gap-2">
           {["All", "Frontend", "DevOps", "AI", "Design", "Career"].map((c) => (
             <button
               key={c}
-              onClick={() => setCat(c)}
+              onClick={() => { setCat(c); setExpanded(false); }}
               data-cursor="hover"
               className={cn(
                 "rounded-full px-4 py-1.5 font-mono text-xs transition-colors",
@@ -56,7 +63,7 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {filtered.filter(p => p.status === 'published' || !p.status).map((p, i) => {
+        {currentPosts.filter(p => p.status === 'published' || !p.status).map((p, i) => {
           const catName = typeof p.category === 'object' && p.category ? p.category.name : (p.category || 'Tech');
           return (
             <Link
@@ -94,6 +101,18 @@ export function Blog({ posts = [] }: { posts?: any[] }) {
           </p>
         )}
       </div>
+
+      {!isFullPage && hasMore && (
+        <div className="mt-12 flex justify-center">
+          <Link
+            to="/blog"
+            className="group flex items-center gap-2 rounded-full glass px-6 py-3 font-mono text-xs uppercase transition-all hover:bg-secondary hover:text-secondary-foreground"
+          >
+            View All Articles
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

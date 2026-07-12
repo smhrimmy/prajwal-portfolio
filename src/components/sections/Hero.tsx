@@ -63,7 +63,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center justify-center px-6 pt-24">
+    <section data-portfolio-component="hero" id="home" className="relative flex min-h-screen items-center justify-center px-6 pt-24">
       {floatIcons.map(({ Icon, x, y, d }, i) => (
         <motion.div
           key={i}

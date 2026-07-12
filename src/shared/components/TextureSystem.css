@@ -1,0 +1,70 @@
+.pdl-texture-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
+.dark .pdl-texture-overlay {
+  mix-blend-mode: screen;
+}
+
+/* 1. Basic Noise */
+.pdl-texture-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* 2. Paper (softer noise + slight warm tint) */
+.pdl-texture-paper {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperFilter)' opacity='0.5'/%3E%3C/svg%3E");
+  background-color: rgba(245, 240, 235, 0.05);
+}
+
+/* 3. CRT (Scanlines + slight noise) */
+.pdl-texture-crt {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background-size: 100% 4px;
+  mix-blend-mode: normal;
+}
+
+.dark .pdl-texture-crt {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  mix-blend-mode: normal;
+}
+
+/* 4. Film Grain (Animated noise) */
+@keyframes film-grain-anim {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-1%, -1%); }
+  20% { transform: translate(1%, 1%); }
+  30% { transform: translate(-2%, -1%); }
+  40% { transform: translate(2%, 2%); }
+  50% { transform: translate(-1%, 2%); }
+  60% { transform: translate(1%, -2%); }
+  70% { transform: translate(-2%, 1%); }
+  80% { transform: translate(2%, -1%); }
+  90% { transform: translate(1%, 2%); }
+}
+
+.pdl-texture-film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  width: 150vw;
+  height: 150vh;
+  top: -25vh;
+  left: -25vw;
+  animation: film-grain-anim 2s steps(4) infinite;
+}
+
+/* 5. Plastic (Smooth, slight glossy noise) */
+.pdl-texture-plastic {
+  background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 60%);
+  mix-blend-mode: normal;
+}
+
+/* We can expand on Canvas, Concrete, Fabric later as needed */

@@ -1,0 +1,12 @@
+{
+  "id": "bento",
+  "name": "Bento Experience",
+  "version": "2.4.0",
+  "author": "Prajwal",
+  "description": "A highly modular, data-driven developer dashboard.",
+  "thumbnail": "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=500",
+  "supports": ["github", "terminal", "animations"],
+  "settings": {
+    "animations": true
+  }
+}

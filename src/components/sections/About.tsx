@@ -14,7 +14,7 @@ export function About() {
   const y2 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
   return (
-    <section id="about" className="relative mx-auto max-w-7xl px-6 py-32" ref={containerRef}>
+    <section data-portfolio-component="about" id="about" className="relative mx-auto max-w-7xl px-6 py-32" ref={containerRef}>
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
         {/* Left Column: Sticky Narrative */}
         <div className="relative">

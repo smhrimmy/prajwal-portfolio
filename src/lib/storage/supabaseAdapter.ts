@@ -82,11 +82,36 @@ export const SupabaseAdapter = {
   getTheme: async () => {
     const { data, error } = await supabase.from("theme").select("*").eq("id", 1).single();
     if (error && error.code !== "PGRST116") console.error("getTheme Error:", error);
-    return data || {};
+    
+    let localConfig = {};
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const configPath = path.join(process.cwd(), 'src', 'data', 'cms', 'engine_config.json');
+      if (fs.existsSync(configPath)) {
+        localConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+      }
+    } catch (e) {
+      console.error("Failed to read local engine config", e);
+    }
+    
+    return { ...(data || {}), ...localConfig };
   },
   
   updateTheme: async (data: any) => {
-    const { error } = await supabase.from("theme").upsert({ id: 1, ...data });
+    // Extract engine and overrides to store locally
+    const { engine, overrides, ...dbData } = data;
+    
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const configPath = path.join(process.cwd(), 'src', 'data', 'cms', 'engine_config.json');
+      fs.writeFileSync(configPath, JSON.stringify({ engine, overrides }, null, 2));
+    } catch (e) {
+      console.error("Failed to write local engine config", e);
+    }
+
+    const { error } = await supabase.from("theme").upsert({ id: 1, ...dbData });
     if (error) console.error("updateTheme Error:", error);
     return !error;
   }

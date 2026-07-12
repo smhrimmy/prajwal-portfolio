@@ -5,11 +5,12 @@ import { useCmsStore } from "@/store/useCmsStore";
 import { projectCategories } from "@/data/projects"; // fallback or kept for categories
 import { SectionHeading } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 
-export function Projects() {
+export function Projects({ isFullPage = false }: { isFullPage?: boolean }) {
   const storeProjects = useCmsStore((s) => s.projects);
   const [cat, setCat] = useState("All");
-  const [page, setPage] = useState(1);
+  const [displayCount, setDisplayCount] = useState(4);
   
   // Extract unique categories from dynamic projects (or fallback to static if needed)
   const dynamicCategories = ["All", ...Array.from(new Set(storeProjects.map(p => p.category).filter(Boolean)))];
@@ -17,18 +18,24 @@ export function Projects() {
 
   const filtered = cat === "All" ? storeProjects : storeProjects.filter((p) => p.category === cat);
 
-  const PROJECTS_PER_PAGE = 4;
-  const totalPages = Math.ceil(filtered.length / PROJECTS_PER_PAGE);
-  const currentProjects = filtered.slice((page - 1) * PROJECTS_PER_PAGE, page * PROJECTS_PER_PAGE);
+  const currentProjects = isFullPage ? filtered : filtered.slice(0, displayCount);
+  const hasMore = !isFullPage && filtered.length > displayCount;
+  const showViewAll = displayCount >= 12;
 
   const handleCatChange = (c: string) => {
     setCat(c);
-    setPage(1);
+    setDisplayCount(4);
+  };
+
+  const handleLoadMore = () => {
+    setDisplayCount(prev => prev + 4);
   };
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-28">
-      <SectionHeading kicker="// registry" title="Digital Artifacts" subtitle="A curated collection of experimental systems and shipped products." />
+    <section data-portfolio-component="projects" id="projects" className={cn("relative mx-auto max-w-6xl", isFullPage ? "px-0 py-0" : "px-6 py-28")}>
+      {!isFullPage && (
+        <SectionHeading kicker="// registry" title="Digital Artifacts" subtitle="A curated collection of experimental systems and shipped products." />
+      )}
 
       <div className="mb-10 flex flex-wrap justify-center gap-2">
         {cats.map((c) => (
@@ -148,25 +155,25 @@ export function Projects() {
         </AnimatePresence>
       </motion.div>
 
-      {totalPages > 1 && (
-        <div className="mt-12 flex items-center justify-center gap-4">
-          <button
-            onClick={() => setPage(Math.max(1, page - 1))}
-            disabled={page === 1}
-            className="flex h-10 w-10 items-center justify-center rounded-full glass text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50 disabled:hover:text-muted-foreground"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <div className="font-mono text-xs text-muted-foreground">
-            {page} / {totalPages}
-          </div>
-          <button
-            onClick={() => setPage(Math.min(totalPages, page + 1))}
-            disabled={page === totalPages}
-            className="flex h-10 w-10 items-center justify-center rounded-full glass text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50 disabled:hover:text-muted-foreground"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+      {hasMore && (
+        <div className="mt-12 flex justify-center">
+          {showViewAll ? (
+            <Link
+              to="/projects"
+              className="group flex items-center gap-2 rounded-full bg-secondary/10 px-6 py-3 font-mono text-xs uppercase text-secondary transition-all hover:bg-secondary hover:text-secondary-foreground"
+            >
+              View All Projects
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          ) : (
+            <button
+              onClick={handleLoadMore}
+              className="group flex items-center gap-2 rounded-full glass px-6 py-3 font-mono text-xs uppercase transition-all hover:bg-secondary/10 hover:text-secondary"
+            >
+              Load More
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          )}
         </div>
       )}
     </section>

@@ -1,17 +1,29 @@
 import { motion } from "framer-motion";
-import { GitCommit, GitPullRequest, GitMerge } from "lucide-react";
-import { experiences } from "@/data/experience";
+import { GitCommit, GitPullRequest, GitMerge, ArrowUpRight } from "lucide-react";
+import { experiences as staticExperiences } from "@/data/experience";
 import { SectionHeading } from "@/components/ui/reveal";
+import { useCmsStore } from "@/store/useCmsStore";
+import { Link } from "@tanstack/react-router";
+import { cn } from "@/lib/utils";
 
-export function Experience() {
+export function Experience({ isFullPage = false }: { isFullPage?: boolean }) {
+  const cmsStore = useCmsStore();
+  const rawExperiences = (cmsStore as any).experience?.length > 0 ? (cmsStore as any).experience : staticExperiences;
+
+  const INITIAL_COUNT = 4;
+  const currentExperiences = isFullPage ? rawExperiences : rawExperiences.slice(0, INITIAL_COUNT);
+  const hasMore = !isFullPage && rawExperiences.length > INITIAL_COUNT;
+
   return (
-    <section id="experience" className="relative mx-auto max-w-5xl px-6 py-28">
-      <SectionHeading kicker="// the_journey" title="Experience" subtitle="A timeline of shipped products, resolved incidents, and technical growth." />
+    <section data-portfolio-component="experience" id="experience" className={cn("relative mx-auto max-w-5xl", isFullPage ? "px-0 py-0" : "px-6 py-28")}>
+      {!isFullPage && (
+        <SectionHeading kicker="// the_journey" title="Experience" subtitle="A timeline of shipped products, resolved incidents, and technical growth." />
+      )}
 
       <div className="relative mt-12">
         <div className="absolute left-6 top-4 h-[calc(100%-2rem)] w-0.5 bg-gradient-to-b from-border via-secondary/20 to-transparent lg:left-1/2 lg:-translate-x-1/2" />
         
-        {experiences.map((e, i) => {
+        {currentExperiences.map((e: any, i: number) => {
           const isEven = i % 2 === 0;
           return (
             <motion.div
@@ -47,7 +59,7 @@ export function Experience() {
                   <div className="mt-1 font-mono text-sm text-secondary">@ {e.company}</div>
                   
                   <div className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
-                    {e.achievements.map((a, j) => (
+                    {e.achievements?.map((a: string, j: number) => (
                       <p key={j} className="flex gap-3">
                         <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary/50 ${!isEven && "lg:hidden"}`} />
                         <span className="flex-1">{a}</span>
@@ -61,6 +73,18 @@ export function Experience() {
           );
         })}
       </div>
+
+      {hasMore && (
+        <div className="mt-12 flex justify-center">
+          <Link
+            to="/timeline"
+            className="group flex items-center gap-2 rounded-full glass px-6 py-3 font-mono text-xs uppercase transition-all hover:bg-secondary hover:text-secondary-foreground"
+          >
+            Career Archive
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

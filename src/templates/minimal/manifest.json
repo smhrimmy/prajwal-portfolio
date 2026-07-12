@@ -1,0 +1,12 @@
+{
+  "id": "minimal",
+  "name": "Editorial Minimal",
+  "version": "1.0.0",
+  "author": "Prajwal",
+  "description": "Massive typography and asymmetric grids. Perfect for storytelling and case studies.",
+  "thumbnail": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=500",
+  "supports": ["blog", "storytelling", "gallery"],
+  "settings": {
+    "animations": true
+  }
+}

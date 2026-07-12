@@ -82,22 +82,116 @@
   color-scheme: dark;
 }
 
-/* Light theme (theme switcher) */
-.light {
-  --background: oklch(0.98 0.005 260);
-  --foreground: oklch(0.18 0.04 275);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 275);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 275);
-  --primary: oklch(0.5 0.24 275);
+/* Base Cyberpunk Theme (Default) */
+.theme-cyberpunk {
+  --background: oklch(0.13 0.04 275);
+  --foreground: oklch(0.98 0.01 260);
+  --card: oklch(0.16 0.045 275);
+  --card-foreground: oklch(0.98 0.01 260);
+  --popover: oklch(0.15 0.045 275);
+  --popover-foreground: oklch(0.98 0.01 260);
+  --primary: oklch(0.55 0.24 275);
   --primary-foreground: oklch(0.99 0.01 260);
-  --secondary: oklch(0.6 0.15 210);
-  --secondary-foreground: oklch(0.99 0.01 260);
-  --muted: oklch(0.94 0.01 260);
-  --muted-foreground: oklch(0.45 0.03 260);
-  --accent: oklch(0.6 0.2 305);
+  --secondary: oklch(0.72 0.15 210);
+  --secondary-foreground: oklch(0.13 0.04 275);
+  --muted: oklch(0.22 0.04 275);
+  --muted-foreground: oklch(0.68 0.03 260);
+  --accent: oklch(0.68 0.2 305);
   --accent-foreground: oklch(0.99 0.01 260);
+  --destructive: oklch(0.63 0.24 27);
+  --destructive-foreground: oklch(0.99 0.01 260);
+  --success: oklch(0.72 0.2 150);
+  --warning: oklch(0.78 0.16 75);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.55 0.24 275);
+  --radius: 0.75rem;
+}
+
+/* Minimalist Light Theme */
+.theme-minimal {
+  --background: oklch(0.99 0.0 0);
+  --foreground: oklch(0.15 0.0 0);
+  --card: oklch(0.97 0.0 0);
+  --card-foreground: oklch(0.15 0.0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.0 0);
+  --primary: oklch(0.2 0.0 0);
+  --primary-foreground: oklch(0.98 0.0 0);
+  --secondary: oklch(0.9 0.0 0);
+  --secondary-foreground: oklch(0.1 0.0 0);
+  --muted: oklch(0.92 0.0 0);
+  --muted-foreground: oklch(0.4 0.0 0);
+  --accent: oklch(0.9 0.0 0);
+  --accent-foreground: oklch(0.1 0.0 0);
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0.0 0);
+  --success: oklch(0.6 0.15 140);
+  --warning: oklch(0.8 0.15 80);
+  --border: oklch(0.9 0.0 0);
+  --input: oklch(0.9 0.0 0);
+  --ring: oklch(0.2 0.0 0);
+  --radius: 0rem;
+  color-scheme: light;
+}
+
+/* Retro Terminal Theme */
+.theme-retro {
+  --background: oklch(0.1 0.0 0);
+  --foreground: oklch(0.75 0.18 140);
+  --card: oklch(0.12 0.0 0);
+  --card-foreground: oklch(0.75 0.18 140);
+  --popover: oklch(0.12 0.0 0);
+  --popover-foreground: oklch(0.75 0.18 140);
+  --primary: oklch(0.75 0.18 140);
+  --primary-foreground: oklch(0.1 0.0 0);
+  --secondary: oklch(0.2 0.0 140);
+  --secondary-foreground: oklch(0.75 0.18 140);
+  --muted: oklch(0.15 0.0 140);
+  --muted-foreground: oklch(0.4 0.1 140);
+  --accent: oklch(0.2 0.0 140);
+  --accent-foreground: oklch(0.75 0.18 140);
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.1 0.0 0);
+  --success: oklch(0.75 0.18 140);
+  --warning: oklch(0.75 0.18 140);
+  --border: oklch(0.75 0.18 140 / 30%);
+  --input: oklch(0.75 0.18 140 / 30%);
+  --ring: oklch(0.75 0.18 140);
+  --radius: 0.25rem;
+  --font-sans: "JetBrains Mono", monospace;
+  color-scheme: dark;
+}
+
+/* Glassmorphism Theme */
+.theme-glassmorphism {
+  --background: oklch(0.25 0.1 260);
+  --foreground: oklch(0.98 0.01 260);
+  --card: oklch(0.3 0.1 260 / 20%);
+  --card-foreground: oklch(0.98 0.01 260);
+  --popover: oklch(0.3 0.1 260 / 20%);
+  --popover-foreground: oklch(0.98 0.01 260);
+  --primary: oklch(0.7 0.15 300);
+  --primary-foreground: oklch(0.99 0.0 0);
+  --secondary: oklch(0.4 0.1 260 / 30%);
+  --secondary-foreground: oklch(0.98 0.01 260);
+  --muted: oklch(0.35 0.1 260 / 40%);
+  --muted-foreground: oklch(0.8 0.05 260);
+  --accent: oklch(0.7 0.15 300 / 30%);
+  --accent-foreground: oklch(0.98 0.01 260);
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0.0 0);
+  --success: oklch(0.7 0.15 150);
+  --warning: oklch(0.8 0.15 80);
+  --border: oklch(1 0 0 / 15%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.7 0.15 300);
+  --radius: 1.5rem;
+  color-scheme: dark;
+}
+
+/* Light theme (legacy fallback) */
+.light {
   --border: oklch(0.18 0.04 275 / 10%);
   --input: oklch(0.18 0.04 275 / 15%);
   color-scheme: light;

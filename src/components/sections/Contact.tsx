@@ -10,7 +10,7 @@ const iconMap: Record<string, typeof Github> = { github: Github, linkedin: Linke
 function QrCode() {
   const cells = Array.from({ length: 21 * 21 }, (_, i) => Math.abs(Math.sin(i * 78.233 + 1) * 10000) % 1 > 0.55);
   return (
-    <div className="grid aspect-square w-28 grid-cols-[repeat(21,1fr)] gap-px rounded-lg bg-foreground/90 p-2">
+    <div data-portfolio-component="contact" className="grid aspect-square w-28 grid-cols-[repeat(21,1fr)] gap-px rounded-lg bg-foreground/90 p-2">
       {cells.map((on, i) => (
         <span key={i} className={on ? "bg-background" : "bg-transparent"} />
       ))}

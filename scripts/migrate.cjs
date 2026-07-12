@@ -23,16 +23,22 @@ async function migrate() {
 
   // Theme
   const theme = JSON.parse(fs.readFileSync('src/data/cms/theme.json', 'utf8'));
-  res = await supabase.from('theme').upsert({ id: 1, ...theme });
+  const { engine, overrides, ...safeTheme } = theme;
+  res = await supabase.from('theme').upsert({ id: 1, ...safeTheme });
   if (res.error) console.error('Theme Error:', res.error.message);
   else console.log('Migrated theme config');
 
   // Projects
   const projects = JSON.parse(fs.readFileSync('src/data/cms/projects.json', 'utf8'));
-  if (projects.length > 0) {
+  const safeProjects = projects.map(p => {
+    const { image, ...rest } = p;
+    return rest;
+  });
+  
+  if (safeProjects.length > 0) {
     res = await supabase.from('projects').delete().neq('id', '000');
     if (res.error) console.error('Projects Delete Error:', res.error.message);
-    res = await supabase.from('projects').insert(projects);
+    res = await supabase.from('projects').insert(safeProjects);
     if (res.error) console.error('Projects Insert Error:', res.error.message);
     else console.log('Migrated projects');
   }

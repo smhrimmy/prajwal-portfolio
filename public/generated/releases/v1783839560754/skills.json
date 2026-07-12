@@ -1,0 +1,48 @@
+[
+  {
+    "id": 9,
+    "category": "Languages",
+    "items": [
+      "JavaScript",
+      "TypeScript",
+      "HTML5",
+      "CSS3",
+      "PHP",
+      "SQL"
+    ]
+  },
+  {
+    "id": 10,
+    "category": "Frontend",
+    "items": [
+      "React",
+      "Next.js",
+      "Vite",
+      "Tailwind CSS",
+      "Framer Motion"
+    ]
+  },
+  {
+    "id": 11,
+    "category": "Backend & Database",
+    "items": [
+      "Node.js",
+      "Express",
+      "MySQL",
+      "MongoDB",
+      "Supabase"
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Infrastructure & Tools",
+    "items": [
+      "Git",
+      "Docker",
+      "Linux",
+      "cPanel",
+      "WordPress",
+      "DNS"
+    ]
+  }
+]

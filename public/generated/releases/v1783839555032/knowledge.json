@@ -1,0 +1,66 @@
+{
+  "identity": "Prajwal",
+  "bio": "I build robust, scalable web applications and intuitive interfaces. Passionate about solving complex technical challenges.",
+  "portfolio_context": "This is a portfolio OS. The following projects and skills represent the developer's experience.",
+  "projects": [],
+  "skills": [
+    {
+      "id": 5,
+      "category": "Languages",
+      "items": [
+        "JavaScript",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "PHP",
+        "SQL"
+      ]
+    },
+    {
+      "id": 6,
+      "category": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Vite",
+        "Tailwind CSS",
+        "Framer Motion"
+      ]
+    },
+    {
+      "id": 7,
+      "category": "Backend & Database",
+      "items": [
+        "Node.js",
+        "Express",
+        "MySQL",
+        "MongoDB",
+        "Supabase"
+      ]
+    },
+    {
+      "id": 8,
+      "category": "Infrastructure & Tools",
+      "items": [
+        "Git",
+        "Docker",
+        "Linux",
+        "cPanel",
+        "WordPress",
+        "DNS"
+      ]
+    }
+  ],
+  "terminal_commands": [
+    "help",
+    "ls",
+    "cd",
+    "cat",
+    "clear",
+    "echo",
+    "whoami",
+    "gui",
+    "theme",
+    "resume"
+  ]
+}

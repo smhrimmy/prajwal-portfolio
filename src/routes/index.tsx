@@ -4,18 +4,8 @@ import { Background } from "@/components/background/Background";
 import { Particles } from "@/components/background/Particles";
 import { CustomCursor } from "@/components/cursor/CustomCursor";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
-import { FloatingNav } from "@/components/layout/FloatingNav";
 import { ControlDock } from "@/components/layout/ControlDock";
-import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { Skills } from "@/components/sections/Skills";
-import { Projects } from "@/components/sections/Projects";
-import { Experience } from "@/components/sections/Experience";
-import { Certifications } from "@/components/sections/Certifications";
-import { GithubSection } from "@/components/sections/GithubSection";
-import { Blog } from "@/components/sections/Blog";
-import { Contact } from "@/components/sections/Contact";
+
 import { Assistant } from "@/components/ai/Assistant";
 import { CommandPalette } from "@/components/secret/CommandPalette";
 import { Terminal } from "@/components/secret/Terminal";
@@ -25,14 +15,23 @@ import { getArticlesFn } from "@/actions/cms";
 
 import { useQuery } from '@tanstack/react-query';
 
+import { WebsiteRenderer } from "@/components/WebsiteRenderer";
+import { PortfolioData } from "@/shared/types";
+import { PreviewActionBar } from "@/components/layout/PreviewActionBar";
+
 export const Route = createFileRoute("/")({
   component: Index,
+  validateSearch: (search: Record<string, unknown>): { preview?: string } => {
+    return {
+      preview: search.preview as string | undefined,
+    }
+  }
 });
 
 function Index() {
   const [mounted, setMounted] = useState(false);
   const [fallbackBlogs, setFallbackBlogs] = useState<any[]>([]);
-  const { setSite, setProjects, setSkills, setTheme, site } = useCmsStore();
+  const cmsStore = useCmsStore();
 
   // Auto-updating query for articles
   const { data: dbArticles } = useQuery({
@@ -64,10 +63,10 @@ function Index() {
         const blogRes = await fetchJson(`/generated/blog/index.json?t=${t}`);
         if (blogRes && blogRes.length > 0) setFallbackBlogs(blogRes);
 
-        if (siteRes && Object.keys(siteRes).length > 0) setSite(siteRes);
-        if (projRes && projRes.length > 0) setProjects(projRes);
-        if (skillRes && skillRes.length > 0) setSkills(skillRes);
-        if (themeRes && Object.keys(themeRes).length > 0) setTheme(themeRes);
+        if (siteRes && Object.keys(siteRes).length > 0) cmsStore.setSite(siteRes);
+        if (projRes && projRes.length > 0) cmsStore.setProjects(projRes);
+        if (skillRes && skillRes.length > 0) cmsStore.setSkills(skillRes);
+        if (themeRes && Object.keys(themeRes).length > 0) cmsStore.setTheme(themeRes);
       } catch (e) {
         console.error("Failed to fetch latest CMS data", e);
       }
@@ -75,6 +74,32 @@ function Index() {
     
     fetchLatest();
   }, []);
+
+  const blogsToRender = (dbArticles && dbArticles.length > 0) ? dbArticles : fallbackBlogs;
+
+  const { preview } = Route.useSearch();
+
+  // Construct PortfolioData
+  const portfolioData: PortfolioData = {
+    profile: cmsStore.site,
+    projects: cmsStore.projects,
+    experience: (cmsStore as any).experience || [],
+    certifications: (cmsStore as any).certifications || [],
+    skills: cmsStore.skills,
+    blog: blogsToRender,
+    contact: cmsStore.site,
+    social: cmsStore.site?.socialLinks || [],
+    theme: {
+      id: preview || cmsStore.theme?.activeTemplate || "bento",
+      name: "Template",
+      version: "1.0",
+      author: "Admin",
+      description: "",
+      thumbnail: "",
+      supports: [],
+      settings: cmsStore.theme?.settings || { animations: true }
+    }
+  };
 
   return (
     <>
@@ -87,22 +112,8 @@ function Index() {
         </>
       )}
 
-      <FloatingNav />
+      {/* Control components which might be global */}
       <ControlDock />
-
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Certifications />
-        <GithubSection username={site?.github_username || "O-FALLEN-ANGEL-O"} />
-        <Blog posts={(dbArticles && dbArticles.length > 0) ? dbArticles : fallbackBlogs} />
-        <Contact />
-      </main>
-      <Footer />
-
       {mounted && (
         <>
           <Assistant />
@@ -111,7 +122,9 @@ function Index() {
           <SecretFeatures />
         </>
       )}
+
+      {preview && <PreviewActionBar templateId={preview} />}
+      <WebsiteRenderer data={portfolioData} />
     </>
   );
 }
-
